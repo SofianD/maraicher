@@ -10,8 +10,8 @@ async function bootstrap() {
   // app.use(json({
   //   limit: '50mb'
   // }));
-
   await app.listen(3000);
+  console.log('Connected.');
 }
 
 bootstrap();
