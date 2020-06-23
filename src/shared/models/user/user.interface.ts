@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 export class User {
 
     @prop({
+        unique: true,
         required: true
     })
     email: string;
@@ -14,6 +15,7 @@ export class User {
     password: string;
 
     @prop({
+        unique: true,
         required: true
     })
     pseudo: string;
@@ -29,11 +31,13 @@ export class User {
     isPremium: boolean;
 
     @prop({
+        _id: false,
         items: mongoose.Schema.Types.ObjectId
     })
     stores?: mongoose.Schema.Types.ObjectId[];
 
     @prop({
+        _id: false,
         items: mongoose.Schema.Types.ObjectId
     })
     shoppingCart?: mongoose.Schema.Types.ObjectId[];
