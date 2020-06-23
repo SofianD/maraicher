@@ -1,24 +1,42 @@
-import { prop } from '@typegoose/typegoose';
+import { prop, mongoose, Ref } from '@typegoose/typegoose';
 import * as bcrypt from 'bcrypt';
 
 export class User {
 
-    constructor() {}
-
-    @prop()
+    @prop({
+        required: true
+    })
     email: string;
 
-    @prop()
+    @prop({
+        required: true
+    })
     password: string;
 
-    @prop()
+    @prop({
+        required: true
+    })
     pseudo: string;
 
-    @prop({ default: new Date() })
+    @prop({
+        default: new Date()
+    })
     createdAt: Date;
 
-    @prop({ default: false })
+    @prop({
+        required: true
+    })
     isPremium: boolean;
+
+    @prop({
+        items: mongoose.Schema.Types.ObjectId
+    })
+    stores?: mongoose.Schema.Types.ObjectId[];
+
+    @prop({
+        items: mongoose.Schema.Types.ObjectId
+    })
+    shoppingCart?: mongoose.Schema.Types.ObjectId[];
 
     async hashPassword(): Promise<void> {
         this.password = await bcrypt.hash(this.password, 10);
