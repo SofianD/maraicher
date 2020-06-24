@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { UserModule } from './user/user.module';
+import { UserModule } from './core/user/user.module';
+import { AuthModule } from './core/auth/auth.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { UserModule } from './user/user.module';
         useCreateIndex: true
       }
     ),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
