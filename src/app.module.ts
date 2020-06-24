@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { UserModule } from './core/user/user.module';
 import { AuthModule } from './core/auth/auth.module';
+import { StoreModule } from './core/store/store.module';
 
 @Module({
   imports: [
@@ -14,9 +15,8 @@ import { AuthModule } from './core/auth/auth.module';
       }
     ),
     UserModule,
-    AuthModule
-  ],
-  controllers: [],
-  providers: [],
+    AuthModule,
+    StoreModule
+  ]
 })
 export class AppModule {}
