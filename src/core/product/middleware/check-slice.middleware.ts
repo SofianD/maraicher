@@ -6,14 +6,14 @@ export class CheckSliceMiddleware implements NestMiddleware {
 
     const product = req.body.data.product;
 
-    if (!product.sellPerSliceOf && !product.quantity) {
+    if ((product.sellPerSliceOf && product.quantity) === undefined) {
       return res.status(400).json({
         message: 'Missed param.'
       });
     }
 
     const quantity = {
-      isLowerThanSlice: product.quantity <= product.sellPerSliceOf,
+      isLowerThanSlice: product.quantity < product.sellPerSliceOf,
       isMultipleOfSlice: product.quantity % product.sellPerSliceOf === 0
     };
 
