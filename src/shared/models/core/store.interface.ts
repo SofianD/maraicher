@@ -11,11 +11,11 @@ export class Store {
     @prop()
     description?: string;
 
-    @prop({
-        _id: false,
-        items: mongoose.Schema.Types.ObjectId
-    })
-    products?: mongoose.Schema.Types.ObjectId[];
+    // @prop({
+    //     _id: false,
+    //     items: mongoose.Schema.Types.ObjectId
+    // })
+    // products?: mongoose.Schema.Types.ObjectId[];
 
     @prop({
         ref: 'User',
