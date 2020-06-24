@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Product } from 'src/shared/models/core/product.interface';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
+import { exec } from 'child_process';
 
 @Injectable()
 export class ProductService {
@@ -26,6 +27,17 @@ export class ProductService {
         let result;
         try {
             result = await this.productModel.findById(id);
+        } catch (error) {
+            throw error;
+        }
+
+        return result;
+    }
+
+    async findAll() {
+        let result;
+        try {
+            result = await this.productModel.find().exec();
         } catch (error) {
             throw error;
         }
