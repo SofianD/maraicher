@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { User } from 'src/shared/models/user/user.interface';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class AuthService {
 
     constructor (
-        private readonly userModel: ReturnModelType<typeof User>
+        @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>
     ) {
 
     }

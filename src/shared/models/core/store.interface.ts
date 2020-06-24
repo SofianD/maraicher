@@ -8,10 +8,8 @@ export class Store {
     })
     name: string;
 
-    @prop({
-        required: true
-    })
-    description: string;
+    @prop()
+    description?: string;
 
     @prop({
         _id: false,
@@ -31,7 +29,8 @@ export class Store {
     private: boolean;
 
     @prop({
+        _id: false,
         items: mongoose.Schema.Types.ObjectId
     })
-    lastProductsPurchased: mongoose.Schema.Types.ObjectId[]
+    lastProductsPurchased?: mongoose.Schema.Types.ObjectId[]
 }

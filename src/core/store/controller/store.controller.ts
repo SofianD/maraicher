@@ -1,38 +1,20 @@
-import { Controller, Get, Body, Param, HttpException, HttpStatus, Post, Put, Delete } from '@nestjs/common';
-import { UserService } from '../service/user.service';
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Put, Delete } from '@nestjs/common';
+import { StoreService } from '../service/store.service';
 
-@Controller('user')
-export class UserController {
+@Controller('store')
+export class StoreController {
 
-    constructor(
-        private readonly userService: UserService
+    constructor (
+        private readonly storeService: StoreService
     ) {}
 
-    @Get('/:id')
-    async getUserById(
-        @Param('id') id: string
-    ) {
-        try {
-            await this.userService.findById(id);
-        } catch (error) {
-            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return;
-    }
-
-    @Get()
-    async getUser() {
-
-    }
-
     @Post()
-    async createUser(
+    async create(
         @Body('data') data
     ) {
         let result;
         try {
-            result = await this.userService.create(data.user);
+            result = await this.storeService.create(data.store);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -40,27 +22,42 @@ export class UserController {
         return result;
     }
 
-    @Put('/:id')
-    async updateUser(
-        @Param('id') id: string,
-        @Body('data') data
+    @Get('/:id')
+    async getOneStore(
+        @Param('id') id
     ) {
+        let store;
         try {
-            await this.userService.update(id, data.user);
+            store = await this.storeService.findById(id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return;
+        return store;
+    }
+
+    @Put('/:id')
+    async updateStore(
+        @Param('id') id: string,
+        @Body('data') data
+    ) {
+        let result;
+        try {
+            result = await this.storeService.update(id, data.store);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return result;
     }
 
     @Delete('/:id')
-    async deleteUser(
+    async deleteStore(
         @Param('id') id: string
     ) {
         let result;
         try {
-            result = await this.userService.delete(id);
+            result = await this.storeService.delete(id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
