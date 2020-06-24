@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { Store } from 'src/shared/models/core/store.interface';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class StoreService {
     constructor(
-        private readonly storeModel: ReturnModelType<typeof Store>
+        @InjectModel(Store) private readonly storeModel: ReturnModelType<typeof Store>
     ) {}
 
     async create (data) {
