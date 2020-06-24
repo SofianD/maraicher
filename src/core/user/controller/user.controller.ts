@@ -15,7 +15,7 @@ export class UserController {
         try {
             await this.userService.findById(id);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return;
@@ -32,9 +32,9 @@ export class UserController {
     ) {
         let result;
         try {
-            result = await this.userService.create(data);
+            result = await this.userService.create(data.user);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return result;
@@ -46,9 +46,9 @@ export class UserController {
         @Body('data') data
     ) {
         try {
-            await this.userService.update(id, data);
+            await this.userService.update(id, data.user);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return;
@@ -62,7 +62,7 @@ export class UserController {
         try {
             result = await this.userService.delete(id);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if (result.deletedCount === 0) {

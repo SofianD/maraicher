@@ -10,13 +10,13 @@ export class StoreController {
 
     @Post()
     async create(
-        @Body('data.store') store
+        @Body('data') data
     ) {
         let result;
         try {
-            result = await this.storeService.create(store);
+            result = await this.storeService.create(data.store);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return result;
@@ -30,7 +30,7 @@ export class StoreController {
         try {
             store = await this.storeService.findById(id);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return store;
@@ -39,13 +39,13 @@ export class StoreController {
     @Put('/:id')
     async updateStore(
         @Param('id') id: string,
-        @Body('data.store') store
+        @Body('data') data
     ) {
         let result;
         try {
-            result = await this.storeService.update(id, store);
+            result = await this.storeService.update(id, data.store);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return result;
@@ -59,7 +59,7 @@ export class StoreController {
         try {
             result = await this.storeService.delete(id);
         } catch (error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if (result.deletedCount === 0) {
