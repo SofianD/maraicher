@@ -30,13 +30,14 @@ export class UserController {
     async createUser(
         @Body('data') data
     ) {
+        let result;
         try {
-            await this.userService.create(data);
+            result = await this.userService.create(data);
         } catch (error) {
             throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return;
+        return result;
     }
 
     @Put('/:id')
