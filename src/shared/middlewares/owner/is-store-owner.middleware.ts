@@ -30,9 +30,18 @@ export class IsStoreOwnerMiddleware implements NestMiddleware {
     }
 
     if (result.user !== userId) {
-      return res.status(401).json({
-        message: 'Forbidden'
-      });
+      result = false;
+    } else {
+      result = true;
+    }
+
+    if (req.body.data.isStoreOwner !== undefined) {
+      req.body.data.isStoreOwner = result;
+    } else {
+      req.body.data = {
+        ...req.body.data,
+        isStoreOwner: result
+      };
     }
 
     next();
