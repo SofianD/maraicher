@@ -1,13 +1,14 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Product } from 'src/shared/models/core/product.interface';
+import { Produce } from 'src/shared/models/core/produce.interface';
 import { ReturnModelType } from '@typegoose/typegoose';
 import * as jwt from 'jsonwebtoken';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class IsProduceOwnerMiddleware implements NestMiddleware {
 
   constructor(
-    private readonly produceModel: ReturnModelType<typeof Product>
+    @InjectModel(Produce) private readonly produceModel: ReturnModelType<typeof Produce>
   ) {}
 
   async use(req: any, res: any, next: () => void) {

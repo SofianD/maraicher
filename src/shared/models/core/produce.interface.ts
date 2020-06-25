@@ -1,6 +1,6 @@
 import { prop, mongoose, Ref } from '@typegoose/typegoose';
 
-export class Product {
+export class Produce {
 
     @prop({
         required: true

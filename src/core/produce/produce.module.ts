@@ -1,24 +1,24 @@
 import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
-import { ProductController } from './controller/product.controller';
-import { ProductService } from './service/product.service';
+import { ProduceController } from './controller/produce.controller';
+import { ProduceService } from './service/produce.service';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { Product } from 'src/shared/models/core/product.interface';
+import { Produce } from 'src/shared/models/core/produce.interface';
 import { IsProduceOwnerMiddleware } from 'src/shared/middlewares/owner/is-produce-owner.middleware';
 
 @Module({
   imports: [
     TypegooseModule.forFeature([
-      Product
+      Produce
     ])
   ],
   controllers: [
-    ProductController
+    ProduceController
   ],
   providers: [
-    ProductService
+    ProduceService
   ]
 })
-export class ProductModule implements NestModule {
+export class ProduceModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(

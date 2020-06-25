@@ -2,12 +2,13 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Store } from 'src/shared/models/core/store.interface';
 import { ReturnModelType } from '@typegoose/typegoose';
 import * as jwt from 'jsonwebtoken';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class IsStoreOwnerMiddleware implements NestMiddleware {
 
   constructor(
-    private readonly storeModel: ReturnModelType<typeof Store>
+    @InjectModel(Store) private readonly storeModel: ReturnModelType<typeof Store>
   ) {}
 
   async use(req: any, res: any, next: () => void) {

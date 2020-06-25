@@ -1,11 +1,11 @@
 import { Controller, Post, Body, HttpException, HttpStatus, Get, Put, Param, Delete, UseGuards } from '@nestjs/common';
-import { ProductService } from '../service/product.service';
+import { ProduceService } from '../service/produce.service';
 import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('product')
-export class ProductController {
+export class ProduceController {
     constructor(
-        private readonly productService: ProductService
+        private readonly productService: ProduceService
     ) {}
 
     @Post()
