@@ -32,13 +32,13 @@ export class User {
 
     @prop({
         _id: false,
-        items: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     })
     stores?: mongoose.Schema.Types.ObjectId[];
 
     @prop({
         _id: false,
-        items: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     })
     shoppingCart?: mongoose.Schema.Types.ObjectId[];
 
