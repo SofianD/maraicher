@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Product } from 'src/shared/models/core/product.interface';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { exec } from 'child_process';
 
 @Injectable()
 export class ProductService {

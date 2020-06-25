@@ -23,11 +23,11 @@ export class UserController {
         return;
     }
 
-    @Get()
-    @UseGuards(AuthGuard)
-    async getUser() {
+    // @Get()
+    // @UseGuards(AuthGuard)
+    // async getUser() {
 
-    }
+    // }
 
     @Post()
     async createUser(
