@@ -35,6 +35,12 @@ export class Product {
                     return v >= 0;
                 },
                 message: 'Quantité inférieur à zéro'
+            },
+            {
+                validator: function (v) {
+                    return this.quantity % this.sellPerSliceOf === 0;
+                },
+                message: 'Quantity is not a multiple of slice.'
             }
         ]
     })
@@ -53,7 +59,7 @@ export class Product {
     user: mongoose.Schema.Types.ObjectId;
 
     @prop({
-        items: String
+        type: String
     })
     pictures?: string[];
 
@@ -66,6 +72,12 @@ export class Product {
                     return multiple === 0 ? true : multiple === 1 ? true : false;
                 },
                 message: 'La portion doit être un multiple de 10 ou 1.'
+            },
+            {
+                validator: function(v) {
+                    return this.quantity >= v;
+                },
+                message: 'Quantity is lower than slice.'
             }
         ]
     })

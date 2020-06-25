@@ -1,5 +1,6 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Put, Param, Delete, UseGuards } from '@nestjs/common';
 import { ProductService } from '../service/product.service';
+import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('product')
 export class ProductController {
@@ -8,6 +9,7 @@ export class ProductController {
     ) {}
 
     @Post()
+    @UseGuards(AuthGuard)
     async create(
         @Body('data') data
     ) {
@@ -22,20 +24,35 @@ export class ProductController {
     }
 
     @Get('/:id')
-    async getOneStore(
+    async getOneProduct(
         @Param('id') id
     ) {
-        let store;
+        let product;
         try {
-            store = await this.productService.findById(id);
+            product = await this.productService.findById(id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return store;
+        return product;
+    }
+
+    @Get('all')
+    async getProducts() {
+        let products;
+        try {
+            products = await this.productService.findAll();
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (products.length === 0) throw new HttpException('Not found.', HttpStatus.NOT_FOUND);
+
+        return products;
     }
 
     @Put('/:id')
+    @UseGuards(AuthGuard)
     async updateStore(
         @Param('id') id: string,
         @Body('data') data
@@ -51,6 +68,7 @@ export class ProductController {
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard)
     async deleteStore(
         @Param('id') id: string
     ) {

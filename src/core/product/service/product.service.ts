@@ -33,6 +33,17 @@ export class ProductService {
         return result;
     }
 
+    async findAll() {
+        let result;
+        try {
+            result = await this.productModel.find().exec();
+        } catch (error) {
+            throw error;
+        }
+
+        return result;
+    }
+
     async update(id, product) {
         let result;
 

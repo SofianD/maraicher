@@ -1,5 +1,6 @@
-import { Controller, Get, Body, Param, HttpException, HttpStatus, Post, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Param, HttpException, HttpStatus, Post, Put, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from '../service/user.service';
+import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -9,6 +10,7 @@ export class UserController {
     ) {}
 
     @Get('/:id')
+    @UseGuards(AuthGuard)
     async getUserById(
         @Param('id') id: string
     ) {
@@ -21,10 +23,11 @@ export class UserController {
         return;
     }
 
-    @Get()
-    async getUser() {
+    // @Get()
+    // @UseGuards(AuthGuard)
+    // async getUser() {
 
-    }
+    // }
 
     @Post()
     async createUser(
@@ -41,6 +44,7 @@ export class UserController {
     }
 
     @Put('/:id')
+    @UseGuards(AuthGuard)
     async updateUser(
         @Param('id') id: string,
         @Body('data') data
@@ -55,6 +59,7 @@ export class UserController {
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard)
     async deleteUser(
         @Param('id') id: string
     ) {

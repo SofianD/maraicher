@@ -1,5 +1,6 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { StoreService } from '../service/store.service';
+import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('store')
 export class StoreController {
@@ -9,6 +10,7 @@ export class StoreController {
     ) {}
 
     @Post()
+    @UseGuards(AuthGuard)
     async create(
         @Body('data') data
     ) {
@@ -36,7 +38,22 @@ export class StoreController {
         return store;
     }
 
+    @Get('all')
+    async getAllStores() {
+        let stores;
+        try {
+            stores = await this.storeService.findAll();
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (stores.length === 0) throw new HttpException('Not found.', HttpStatus.NOT_FOUND);
+
+        return stores;
+    }
+
     @Put('/:id')
+    @UseGuards(AuthGuard)
     async updateStore(
         @Param('id') id: string,
         @Body('data') data
@@ -52,6 +69,7 @@ export class StoreController {
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard)
     async deleteStore(
         @Param('id') id: string
     ) {

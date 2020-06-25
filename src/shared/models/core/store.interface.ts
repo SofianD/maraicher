@@ -11,12 +11,6 @@ export class Store {
     @prop()
     description?: string;
 
-    // @prop({
-    //     _id: false,
-    //     items: mongoose.Schema.Types.ObjectId
-    // })
-    // products?: mongoose.Schema.Types.ObjectId[];
-
     @prop({
         ref: 'User',
         required: true
@@ -30,7 +24,7 @@ export class Store {
 
     @prop({
         _id: false,
-        items: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     })
     lastProductsPurchased?: mongoose.Schema.Types.ObjectId[]
 }

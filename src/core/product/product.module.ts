@@ -18,21 +18,4 @@ import { CheckSliceMiddleware } from './middleware/check-slice.middleware';
     ProductService
   ]
 })
-export class ProductModule implements NestModule {
-  configure (consumer: MiddlewareConsumer) {
-    consumer
-      .apply(
-        CheckSliceMiddleware
-      )
-      .forRoutes(
-        {
-        path: 'product',
-        method: RequestMethod.POST
-        },
-        {
-        path: 'product',
-        method: RequestMethod.PUT
-        }
-      );
-  }
-}
+export class ProductModule {}
