@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Store } from 'src/shared/models/core/store.interface';
 import { ReturnModelType } from '@typegoose/typegoose';
-import { identity } from 'rxjs';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class IsStoreOwnerMiddleware implements NestMiddleware {
@@ -11,13 +11,15 @@ export class IsStoreOwnerMiddleware implements NestMiddleware {
   ) {}
 
   async use(req: any, res: any, next: () => void) {
+    
     const storeId = req.params.id;
-    let userId;
+    let userId = (jwt.decode(req.headers.authorization)).key;
 
     let result;
     try {
       result = await this.storeModel.findById(storeId);
     } catch (error) {
+      // console.log(error);
       return res.status(500).json({
         message: 'Internal server error.'
       });
@@ -30,18 +32,9 @@ export class IsStoreOwnerMiddleware implements NestMiddleware {
     }
 
     if (result.user !== userId) {
-      result = false;
-    } else {
-      result = true;
-    }
-
-    if (req.body.data.isStoreOwner !== undefined) {
-      req.body.data.isStoreOwner = result;
-    } else {
-      req.body.data = {
-        ...req.body.data,
-        isStoreOwner: result
-      };
+      return res.status(401).json({
+        message: 'Forbidden.'
+      });
     }
 
     next();
