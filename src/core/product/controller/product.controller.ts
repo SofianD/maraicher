@@ -1,6 +1,6 @@
 import { Controller, Post, Body, HttpException, HttpStatus, Get, Put, Param, Delete, UseGuards } from '@nestjs/common';
 import { ProductService } from '../service/product.service';
-import { AuthGuard } from 'src/shared/middlewares/secure/auth.guard';
+import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('product')
 export class ProductController {
