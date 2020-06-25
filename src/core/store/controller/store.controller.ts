@@ -38,6 +38,20 @@ export class StoreController {
         return store;
     }
 
+    @Get('all')
+    async getAllStores() {
+        let stores;
+        try {
+            stores = await this.storeService.findAll();
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (stores.length === 0) throw new HttpException('Not found.', HttpStatus.NOT_FOUND);
+
+        return stores;
+    }
+
     @Put('/:id')
     @UseGuards(AuthGuard)
     async updateStore(
