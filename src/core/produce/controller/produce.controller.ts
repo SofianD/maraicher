@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpException, HttpStatus, Get, Put, Param, Del
 import { ProduceService } from '../service/produce.service';
 import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
-@Controller('product')
+@Controller('produce')
 export class ProduceController {
     constructor(
         private readonly productService: ProduceService
