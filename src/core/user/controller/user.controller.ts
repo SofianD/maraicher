@@ -1,6 +1,6 @@
 import { Controller, Get, Body, Param, HttpException, HttpStatus, Post, Put, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from '../service/user.service';
-import { AuthGuard } from 'src/shared/middlewares/secure/auth.guard';
+import { AuthGuard } from 'src/shared/middlewares/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
