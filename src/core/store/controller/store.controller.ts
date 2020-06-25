@@ -1,5 +1,6 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Get, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { StoreService } from '../service/store.service';
+import { AuthGuard } from 'src/shared/middlewares/secure/auth.guard';
 
 @Controller('store')
 export class StoreController {
@@ -9,6 +10,7 @@ export class StoreController {
     ) {}
 
     @Post()
+    @UseGuards(AuthGuard)
     async create(
         @Body('data') data
     ) {
@@ -37,6 +39,7 @@ export class StoreController {
     }
 
     @Put('/:id')
+    @UseGuards(AuthGuard)
     async updateStore(
         @Param('id') id: string,
         @Body('data') data
@@ -52,6 +55,7 @@ export class StoreController {
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard)
     async deleteStore(
         @Param('id') id: string
     ) {
